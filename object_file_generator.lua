@@ -15,9 +15,9 @@ function generate_file_data(file_content, file_structure)
     --If enumerations create extension file else class file
 
     if (table.length(file_content.enumerations) <= 0) then
-        
+        -- fsdaf
     else
-
+        --sadffdsa
     end
 
     for i,v in pairs(file_structure.text) do
