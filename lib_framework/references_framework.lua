@@ -73,6 +73,12 @@ function reference_table(path)
             else
                 -- Print failure :o
                 print('failure '..tostring(file_name))
+				local _rt = reference_table(tostring(reference_path..file_name))
+				if (_rt) then
+					for i,v in _rt do
+						table.insert(references, v)
+					end
+				end
             end
         else
             -- Increment nil_file_count 
@@ -94,9 +100,14 @@ function reference_table(path)
     return references
 end
 
-reference_table(references_path)
+function rt()
+	return reference_table(references_path)
+end
 
-
+function main()
+	rt()
+end
+main()
 
 --[[    TEMPLATE
 
