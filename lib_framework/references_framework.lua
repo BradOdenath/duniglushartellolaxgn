@@ -77,7 +77,7 @@ function reference_table(path)
                     table.insert(references,_to)
 
                     -- Print success :D
-                    --print('success '..tostring(file_name), file_content)
+                    print('file_count: '..tostring(file_count), 'success '..tostring(file_name), file_content)
                 end
             else
 			
@@ -86,13 +86,11 @@ function reference_table(path)
 			
 					--Prevent duplicates 
 					
-					-- Print failure :o
-					print('failure '..tostring(file_name))
-					
 					-- Increment folder count
 					folder_count = folder_count + 1
 					
-					
+					-- Print failure :o
+					print('folder_count'..tostring(folder_count 'failure '..tostring(file_name)))
 					
 					local _rt = reference_table(file_name)
 					if (_rt) then
@@ -100,11 +98,11 @@ function reference_table(path)
 						if (#_rt > 0) then
 							for i,v in pairs(_rt) do
 								table.insert(references, v)
-								--print('adding '..tostring(v))
+								print('adding '..tostring(v))
 							end
 						else
 							table.insert(references, _rt[1])
-							--print('adding '..tostring(_rt[1]))
+							print('adding '..tostring(_rt[1]))
 						end
 					end
 					--print('shoestring')
