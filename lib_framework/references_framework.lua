@@ -13,6 +13,8 @@ file_count = 0
 -- Declare reference_path and initialize the value to the directory path for references
 references_path = 'references'
 
+reference_table_count = 0
+
 -- Declare reference_table as a function()
 function reference_table(path)
     -- Declare references as a local variable and initialize the value to a null set
@@ -29,7 +31,9 @@ function reference_table(path)
     
     -- Close the file streamer
     handle:close()
-
+	
+	-- Increment reference table count
+	reference_table_count = reference_table_count + 1
 
     -- Iterate through all_file_names with the value file_name
     for file_name in all_file_names do
@@ -72,12 +76,20 @@ function reference_table(path)
                 end
             else
                 -- Print failure :o
-                print('failure '..tostring(file_name))
-				local _rt = reference_table(tostring(reference_path..file_name))
-				if (_rt) then
-					for i,v in _rt do
-						table.insert(references, v)
+                --print('failure '..tostring(file_name))
+				if (file_name ~= path) then
+					local _rt = reference_table(file_name)
+					if (_rt) then
+						--print('_rt: '..tostring(_rt))
+						if (#_rt > 0) then
+							for i,v in pairs(_rt) do
+								table.insert(references, v)
+							end
+						else
+							table.insert(references, _rt[1])
+						end
 					end
+					--print('shoestring')
 				end
             end
         else
@@ -86,15 +98,21 @@ function reference_table(path)
         end
     end
     -- Print the file count and any nil files
-    if (nil_file_count > 0) then
+	
+	if (reference_table_count <= 1) then
+		if (nil_file_count > 0) then
 
-        -- Print 'nil_file_count /out-of/ file_count' 
-        print('nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
-    else
+			-- Print 'nil_file_count /out-of/ file_count' 
+			print('nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
+		else
 
-        -- Print 'file_count'
-        print('file_count: '..tostring(file_count))
-    end
+			-- Print 'file_count'
+			print('file_count: '..tostring(file_count))
+		end
+	end
+	
+	--Decrement Reference Table Count
+	reference_table_count = reference_table_count - 1
 
     -- Return the references
     return references
@@ -105,7 +123,8 @@ function rt()
 end
 
 function main()
-	rt()
+	local ref_tab = rt()
+	--print(tostring(ref_tab))
 end
 main()
 
