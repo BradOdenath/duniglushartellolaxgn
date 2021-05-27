@@ -25,6 +25,8 @@ reference_table_count = 0
 function reference_table(path)
     -- Declare references as a local variable and initialize the value to a null set
     local references = {}
+	
+	local references_requires = {}
 
     -- Declare handles as a local variable and initialize the value to an open directory stream
     local handle = assert(io.popen(("find '%s' -maxdepth 1 -print0"):format(path), 'r'))
@@ -64,10 +66,15 @@ function reference_table(path)
         
 				--[[ NOTE: Moved file_count to file_content for folder count seperation ]]
 				-- Increment file_count by 1 
+				
+				table.insert(references, file_name)
+				
 				file_count = file_count + 1
 				print('file_count: '..tostring(file_count), file_name)
 
-                -- Initialize the value of _loadstring to the loadstring of the file_content
+                --[[
+				
+				-- Initialize the value of _loadstring to the loadstring of the file_content
                 local _loadstring = loadstring(file_content)
 
                 -- Condition: to() much exist
@@ -78,21 +85,23 @@ function reference_table(path)
                     
                     -- Insert the _to variable function into the table
                     table.insert(references,_to)
-
-                    -- Print success :D
-                    print('file_count: '..tostring(file_count), 'success '..tostring(file_name), file_content)
                 end
+				
+				]]
+
+				-- Print success :D
+				--print('file_count: '..tostring(file_count), 'success '..tostring(file_name), file_content)
 				
 				local req_file_path = string.sub(file_name,1,#file_name-4)
 				
-				print('require '..stringify(req_file_path))
+				--print('require '..stringify(req_file_path))
 				
 				local file_executables = require tostring(req_file_path)
 				
 				pcall(function()
 				
-					print('file_executables: '..tostring(file_executables))
-					print('\texecutable_content: '..tostring(file_executables.to()))
+					--print('file_executables: '..tostring(file_executables))
+					--print('\texecutable_content: '..tostring(file_executables.to()))
 				
 				end)
 				
@@ -108,7 +117,7 @@ function reference_table(path)
 					folder_count = folder_count + 1
 					
 					-- Print failure :o
-					print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
+					--print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
 					
 					local _rt = reference_table(file_name)
 					if (_rt) then
@@ -116,11 +125,11 @@ function reference_table(path)
 						if (#_rt > 0) then
 							for i,v in pairs(_rt) do
 								table.insert(references, v)
-								print('adding '..tostring(v))
+								--print('adding '..tostring(v))
 							end
 						else
 							table.insert(references, _rt[1])
-							print('adding '..tostring(_rt[1]))
+							--print('adding '..tostring(_rt[1]))
 						end
 					end
 					--print('shoestring')
@@ -137,12 +146,12 @@ function reference_table(path)
 		if (nil_file_count > 0) then
 
 			-- Print 'nil_file_count /out-of/ file_count' 
-			print('nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
+			print('total_nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
 		else
 
 			-- Print 'file_count'
-			print('file_count: '..tostring(file_count))
-			print('folder_count: '..tostring(folder_count))
+			print('total_file_count: '..tostring(file_count))
+			print('total_folder_count: '..tostring(folder_count))
 		end
 	end
 	
@@ -160,9 +169,9 @@ end
 
 function main()
 	local ref_tab = rt()
-	--[[for i,v in pairs(ref_tab) do
-		print('i: '..tostring(i)..' | v: '..tostring(loadstring(v)))
-	end]]
+	for i,v in pairs(ref_tab) do
+		print('i: '..tostring(i)..' \t| v: '..tostring(v))
+	end
 end
 main()
 
