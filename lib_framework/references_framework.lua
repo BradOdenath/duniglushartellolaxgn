@@ -10,6 +10,9 @@ nil_file_count = 0
 -- Declare file_count and initialize the value to 0
 file_count = 0
 
+-- Declare file_count and initialize the value to 0
+folder_count = 0
+
 -- Declare reference_path and initialize the value to the directory path for references
 references_path = 'references'
 
@@ -38,9 +41,6 @@ function reference_table(path)
     -- Iterate through all_file_names with the value file_name
     for file_name in all_file_names do
         
-        -- Increment file_count by 1 
-        file_count = file_count + 1
-        
         -- Condition: file_name must be present
         if (file_name ~= nil) then
 
@@ -58,6 +58,11 @@ function reference_table(path)
 
             -- Conditional: file_contents must be PREsent
             if file_content ~= nil then
+        
+				--[[ NOTE: Moved file_count to file_content for folder count seperation ]]
+				-- Increment file_count by 1 
+				file_count = file_count + 1
+				print('file_count: '..tostring(file_count), file_name)
 
                 -- Initialize the value of _loadstring to the loadstring of the file_content
                 local _loadstring = loadstring(file_content)
@@ -72,21 +77,34 @@ function reference_table(path)
                     table.insert(references,_to)
 
                     -- Print success :D
-                    print('success '..tostring(file_name), file_content)
+                    --print('success '..tostring(file_name), file_content)
                 end
             else
-                -- Print failure :o
-                --print('failure '..tostring(file_name))
-				if (file_name ~= path) then
+			
+                if (file_name ~= path) then
+			
+			
+					--Prevent duplicates 
+					
+					-- Print failure :o
+					print('failure '..tostring(file_name))
+					
+					-- Increment folder count
+					folder_count = folder_count + 1
+					
+					
+					
 					local _rt = reference_table(file_name)
 					if (_rt) then
 						--print('_rt: '..tostring(_rt))
 						if (#_rt > 0) then
 							for i,v in pairs(_rt) do
 								table.insert(references, v)
+								--print('adding '..tostring(v))
 							end
 						else
 							table.insert(references, _rt[1])
+							--print('adding '..tostring(_rt[1]))
 						end
 					end
 					--print('shoestring')
@@ -108,11 +126,13 @@ function reference_table(path)
 
 			-- Print 'file_count'
 			print('file_count: '..tostring(file_count))
+			print('folder_count: '..tostring(folder_count))
 		end
 	end
 	
 	--Decrement Reference Table Count
 	reference_table_count = reference_table_count - 1
+	
 
     -- Return the references
     return references
@@ -124,7 +144,9 @@ end
 
 function main()
 	local ref_tab = rt()
-	--print(tostring(ref_tab))
+	--[[for i,v in pairs(ref_tab) do
+		print('i: '..tostring(i)..' | v: '..tostring(loadstring(v)))
+	end]]
 end
 main()
 
