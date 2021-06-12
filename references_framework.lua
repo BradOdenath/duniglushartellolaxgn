@@ -26,6 +26,8 @@ function reference_table(path)
     -- Declare references as a local variable and initialize the value to a null set
     local references = {}
 	
+	local reference_folders = {}
+	
 	local references_requires = {}
 
     -- Declare handles as a local variable and initialize the value to an open directory stream
@@ -115,9 +117,10 @@ function reference_table(path)
 					
 					-- Increment folder count
 					folder_count = folder_count + 1
+					table.insert(reference_folders, file_name)
 					
 					-- Print failure :o
-					--print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
+					print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
 					
 					local _rt = reference_table(file_name)
 					if (_rt) then
@@ -125,14 +128,14 @@ function reference_table(path)
 						if (#_rt > 0) then
 							for i,v in pairs(_rt) do
 								table.insert(references, v)
-								--print('adding '..tostring(v))
+								print('adding '..tostring(v))
 							end
 						else
 							table.insert(references, _rt[1])
-							--print('adding '..tostring(_rt[1]))
+							print('adding '..tostring(_rt[1]))
 						end
 					end
-					--print('shoestring')
+					print('shoestring')
 				end
             end
         else
@@ -150,8 +153,8 @@ function reference_table(path)
 		else
 
 			-- Print 'file_count'
-			print('total_file_count: '..tostring(file_count))
-			print('total_folder_count: '..tostring(folder_count))
+			print('total_file_count: '..tostring(file_count)..[[/]]..tostring(#references))
+			print('total_folder_count: '..tostring(folder_count)..[[/]]..tostring(#reference_folders))
 		end
 	end
 	
@@ -160,17 +163,48 @@ function reference_table(path)
 	
 
     -- Return the references
-    return references
+	
+	print('references: '..tostring(references))
+	print('reference_folders: '..tostring(reference_folders))
+	
+    return {r = references, rf = reference_folders}
 end
 
 function rt()
 	return reference_table(references_path)
 end
 
+print_table = function(table_data)
+	for i,v in pairs(table_data) do
+		if (type(v) == 'table') then
+			print_table(v)
+		else
+			print(tostring(i),tostring(v))
+		end
+	end
+end
+
 function main()
 	local ref_tab = rt()
-	for i,v in pairs(ref_tab) do
-		print('i: '..tostring(i)..' \t| v: '..tostring(v))
+	if (ref_tab) then
+		print_table(ref_tab)
+		
+		if (ref_tab.r) then
+			for i,v in pairs(ref_tab.r) do
+				print('i: '..tostring(i)..' \t| v: '..tostring(v))
+			end
+		else
+			print('nil_value: references_framework/main/var/ref_tab.references')
+		end
+		if (ref_tab.rf) then
+			for i,v in pairs(ref_tab.rf) do
+				print('i: '..tostring(i)..' \t| v: '..tostring(v))
+			end
+		else
+			print('nil_value: references_framework/main/var/ref_tab.reference_folders')
+		end
+	else
+		print('nil_value: references_framework/main/var/ref_tab')
 	end
 end
 
