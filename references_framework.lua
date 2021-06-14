@@ -72,7 +72,7 @@ function reference_table(path)
 				table.insert(references, file_name)
 				
 				file_count = file_count + 1
-				print('file_count: '..tostring(file_count), file_name)
+				--print('file_count: '..tostring(file_count), file_name)
 
                 --[[
 				
@@ -81,6 +81,7 @@ function reference_table(path)
 
                 -- Condition: to() much exist
                 if _loadstring then
+
 
                     -- Declare _to as a local variable and initialize the value to 'to()' in _loadstring
                     local _to = _loadstring
@@ -92,7 +93,9 @@ function reference_table(path)
 				]]
 
 				-- Print success :D
-				--print('file_count: '..tostring(file_count), 'success '..tostring(file_name), file_content)
+				--[[print('file_count: '
+					..tostring(file_count), 'success '
+					..tostring(file_name), file_content)]]
 				
 				local req_file_path = string.sub(file_name,1,#file_name-4)
 				
@@ -120,22 +123,52 @@ function reference_table(path)
 					table.insert(reference_folders, file_name)
 					
 					-- Print failure :o
-					print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
+					--print('folder_count: '..tostring(folder_count), 'failure '..tostring(file_name))
 					
 					local _rt = reference_table(file_name)
 					if (_rt) then
 						--print('_rt: '..tostring(_rt))
-						if (#_rt > 0) then
-							for i,v in pairs(_rt) do
-								table.insert(references, v)
-								print('adding '..tostring(v))
+						if (#_rt.r > 0) then
+							for i,v in pairs(_rt.r) do
+								--print(tostring(i),tostring(v))
+								if (v) then
+									table.insert(references, v)
+									--print('adding '..tostring(v))
+								else
+									print('nil_value: refereces_framework/reference_table/var/_rt'
+										..code_components.left_bracket
+										..tostring(i)
+										..code_components.right_bracket
+										..'/v')
+								end
 							end
-						else
-							table.insert(references, _rt[1])
-							print('adding '..tostring(_rt[1]))
+						--else
+							--table.insert(references, _rt.r)
+							--print('adding '..tostring(_rt.r))
+						end
+
+						if (#_rt.rf > 0) then
+							for i,v in pairs(_rt.rf) do
+								--print(tostring(i),tostring(v))
+								if (v) then
+									table.insert(reference_folders, v)
+									--print('adding '..tostring(v))
+								else
+									print('nil_value: refereces_framework/reference_table/var/_rt'
+										..code_components.left_bracket
+										..tostring(i)
+										..code_components.right_bracket
+										..'/v')
+								end
+							end
+						--else
+							--table.insert(reference_folders, _rt.rf)
+							--print('adding '..tostring(_rt.rf))
 						end
 					end
-					print('shoestring')
+					--print('shoestring')
+					--print_table(references)
+					--print_table(reference_folders)
 				end
             end
         else
@@ -149,12 +182,18 @@ function reference_table(path)
 		if (nil_file_count > 0) then
 
 			-- Print 'nil_file_count /out-of/ file_count' 
-			print('total_nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
+			--print('total_nil_file_count: '..tostring(nil_file_count)..'/'..tostring(file_count))
 		else
 
 			-- Print 'file_count'
-			print('total_file_count: '..tostring(file_count)..[[/]]..tostring(#references))
-			print('total_folder_count: '..tostring(folder_count)..[[/]]..tostring(#reference_folders))
+			--print('total_file_count: '
+			--	..tostring(file_count)
+			--	..[[/]]
+			--	..tostring(#references))
+			--print('total_folder_count: '
+			--	..tostring(folder_count)
+			--	..[[/]]
+			--	..tostring(#reference_folders))
 		end
 	end
 	
@@ -164,32 +203,23 @@ function reference_table(path)
 
     -- Return the references
 	
-	print('references: '..tostring(references))
-	print('reference_folders: '..tostring(reference_folders))
+	--print('references: '..tostring(references))
+	--print('reference_folders: '..tostring(reference_folders))
+	--print('reference_table_count: '..tostring(reference_table_count))
 	
     return {r = references, rf = reference_folders}
 end
 
-function rt()
+function official_reference_table()
 	return reference_table(references_path)
 end
 
-print_table = function(table_data)
-	for i,v in pairs(table_data) do
-		if (type(v) == 'table') then
-			print_table(v)
-		else
-			print(tostring(i),tostring(v))
-		end
-	end
-end
-
 function main()
-	local ref_tab = rt()
+	local ref_tab = official_reference_table()
 	if (ref_tab) then
 		print_table(ref_tab)
 		
-		if (ref_tab.r) then
+		--[[if (ref_tab.r) then
 			for i,v in pairs(ref_tab.r) do
 				print('i: '..tostring(i)..' \t| v: '..tostring(v))
 			end
@@ -202,7 +232,7 @@ function main()
 			end
 		else
 			print('nil_value: references_framework/main/var/ref_tab.reference_folders')
-		end
+		end]]
 	else
 		print('nil_value: references_framework/main/var/ref_tab')
 	end
