@@ -1,5 +1,6 @@
 -- Declare requirements
-require 'phylson/languages/essentials/essentials'
+require('phylson.languages.essentialz.essentialz')
+require('phylson.languages.dart')
 
 references_framework = function()
 
@@ -101,14 +102,16 @@ references_framework = function()
 					
 					local req_file_path = string.sub(file_name,1,#file_name-4)
 					
-					--print('require '..stringify(req_file_path))
+					print('require '..stringify(req_file_path))
 					
 					local file_executables = require tostring(req_file_path)
 					
-					pcall(function()
+					print(dart_class(file_executables.phyl_data()))
 					
-						--print('file_executables: '..tostring(file_executables))
-						--print('\texecutable_content: '..tostring(file_executables.to()))
+					pcall(function()
+						
+						print('file_executables: '..tostring(file_executables))
+						print('\texecutable_content: '..tostring(file_executables.to()))
 					
 					end)
 					

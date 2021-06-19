@@ -1,37 +1,34 @@
-anerobic_bacteria = {
-    data = {};
-    name = 'anerobic_bacteria';
-    enumerations = {
-        values = {};
-        extension = {
-            constants = {};
-            finals = {};
-            attributes = {};
-            functions = {};
-        };
-    };
-    static = {
-        constants = {};
-        finals = {};
-        attributes = {};
-        functions = {};
-    };
-    constants = {};
-    finals = {};
-    attributes = {
-        ['dimensions'] = 'DimensionsReference';
-        ['tanks'] = 'Map<dynamic,TankReference>';
-    };
-    accessors = {};
-    mutators = {};
-    functions = {
-        
-    };
-};
+aquarium_system = {
+	class_name = 'AquariumSystem';
+	class_extends = {};
+	class_implements = {};
+	class_data = {
+		str = {
+			data_type = 'String';
+			data_value = 'sssttrrrrr';
+		}; 
+		dubbl = {
+			data_type = 'double';
+			data_value = 13.37;
+		};
+		ihnt = {
+			data_type = 'int';
+			data_value = 5;
+		};
+		fuhnktchyon = {
+			data_type = 'var';
+			data_parameters = {'derpaderp, adf'};
+			data_value = [[
+				if (adf != null) {
+					derpaderp += adf;
+				} 
+				
+				return (derpaderp);
+			]];
+		};
+	};
+}
 
-function to()
-    print('importing anerobic_bacteria reference data')
-    return anerobic_bacteria
+phyl_data = function()
+	return aquarium_system
 end
-
-to()

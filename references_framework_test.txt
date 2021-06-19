@@ -1,0 +1,29 @@
+Tue Jun 15 20:00:08 EDT 2021
+*
+0 successes / 0 failures / 1 error / 0 pending : 0.005639 seconds
+
+Error -> ./phylson/languages/dart.lua @ 1
+suite references_framework.lua
+./phylson/languages/dart.lua:1: module 'essentialz/essentialz' not found:No LuaRocks module found for essentialz/essentialz
+	no field package.preload['essentialz/essentialz']
+	no file './src/essentialz/essentialz.lua'
+	no file './src/essentialz/essentialz/essentialz/essentialz.lua'
+	no file './src/essentialz/essentialz/init.lua'
+	no file '/home/bob371/.luarocks/share/lua/5.3/essentialz/essentialz.lua'
+	no file '/home/bob371/.luarocks/share/lua/5.3/essentialz/essentialz/init.lua'
+	no file '/usr/local/share/lua/5.3/essentialz/essentialz.lua'
+	no file '/usr/local/share/lua/5.3/essentialz/essentialz/init.lua'
+	no file '/usr/local/lib/lua/5.3/essentialz/essentialz.lua'
+	no file '/usr/local/lib/lua/5.3/essentialz/essentialz/init.lua'
+	no file '/usr/share/lua/5.3/essentialz/essentialz.lua'
+	no file '/usr/share/lua/5.3/essentialz/essentialz/init.lua'
+	no file './essentialz/essentialz.lua'
+	no file './essentialz/essentialz/init.lua'
+	no file './csrc/essentialz/essentialz.so'
+	no file './csrc/essentialz/essentialz/essentialz/essentialz.so'
+	no file '/home/bob371/.luarocks/lib/lua/5.3/essentialz/essentialz.so'
+	no file '/usr/local/lib/lua/5.3/essentialz/essentialz.so'
+	no file '/usr/lib/x86_64-linux-gnu/lua/5.3/essentialz/essentialz.so'
+	no file '/usr/lib/lua/5.3/essentialz/essentialz.so'
+	no file '/usr/local/lib/lua/5.3/loadall.so'
+	no file './essentialz/essentialz.so'
