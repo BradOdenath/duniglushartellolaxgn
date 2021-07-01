@@ -1,6 +1,9 @@
 -- Declare requirements
-require('phylson.languages.essentialz.essentialz')
-require('phylson.languages.dart')
+--require('phylson.essentialz')
+--require('phylson.languages.dart.dart')
+
+require 'tmp/essentialz/essentialz'
+require 'tmp/languages/dart/dart'
 
 references_framework = function()
 
@@ -17,7 +20,7 @@ references_framework = function()
 	local file_count = 0
 
 	-- Declare file_count and initialize the value to 0
-	local folder_count = 0
+	local folder_count 	= 0
 
 	-- Declare reference_path and initialize the value to the directory path for references
 	local references_path = 'references'
