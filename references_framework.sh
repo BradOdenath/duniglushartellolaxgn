@@ -3,15 +3,22 @@
 if [ -d "./tmp" ]
 then
 	rm -rf tmp/
-	ls
 fi
 mkdir tmp
 
-cp -r ./phylson/essentialz ./tmp
-cp -r ./phylson/languages/dart ./tmp
+if [ -d "./essentialz" ]
+then
+	rm -rf essentialz/
+fi
 
-ls
+if [ -d "./dart" ]
+then
+	rm -rf dart/
+fi
+
+cp -r ./phylson/essentialz ./
+cp -r ./phylson/languages/dart ./
+
+tree
 
 lua references_framework.lua
-
-###rm -rf tmp/

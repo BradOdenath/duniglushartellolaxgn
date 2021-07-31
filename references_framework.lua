@@ -2,8 +2,8 @@
 --require('phylson.essentialz')
 --require('phylson.languages.dart.dart')
 
-require 'tmp/essentialz/essentialz'
-require 'tmp/languages/dart/dart'
+require 'essentialz/essentialz'
+require 'dart/dart'
 
 references_framework = function()
 
