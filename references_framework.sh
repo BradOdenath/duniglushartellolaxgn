@@ -16,6 +16,13 @@ then
 	rm -rf dart/
 fi
 
+if [ -d "./phylson" ]
+then
+	rm -rf phylson/
+fi
+
+cp -r ../phylson/
+
 cp -r ./phylson/essentialz ./
 cp -r ./phylson/languages/dart ./
 
